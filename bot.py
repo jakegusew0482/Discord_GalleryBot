@@ -46,6 +46,7 @@ async def on_message(message):
 
             if extension.upper() not in [x.upper() for x in ALLOWED_FILES]:
                 await message.channel.send("This file extension is not supported.")
+                print("Bad File Extension: %s" % attachment.filename)
                 continue
 
             url = attachment.url
@@ -59,6 +60,7 @@ def download_file(url):
     unique_filename = str(uuid.uuid4())
     with open(IMG_DIR + "/" + unique_filename + extension, 'wb') as f:
         f.write(file.content)
+    print("File Created: %s" % (unique_filename + extension))
 
 
 client.run(TOKEN)
