@@ -1,6 +1,7 @@
 import os
-
+import requests
 import discord
+import uuid
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -41,11 +42,15 @@ async def on_message(message):
                 continue
 
             url = attachment.url
-            download_file(DOWNLOAD_DIR, url)
+            download_file(url)
 
 
-def download_file(directory, url):
-    pass
+def download_file(url):
+    extension = url[-4:]
+    file = requests.get(url)
+    unique_filename = str(uuid.uuid4())
+    with open(DOWNLOAD_DIR + "/" + unique_filename + extension, 'wb') as f:
+        f.write(file.content)
 
 
 client.run(TOKEN)
