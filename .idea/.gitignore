@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/.env
+# Datasource local storage ignored files
+/../../../../../../:\Users\jakeg\PycharmProjects\Discord_GalleryBot\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
