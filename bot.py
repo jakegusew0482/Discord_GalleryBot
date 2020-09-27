@@ -39,10 +39,12 @@ async def on_message(message):
         for attachment in message.attachments:
             extension = attachment.filename[-4:]
             if extension.upper() not in [x.upper() for x in ALLOWED_FILES]:
+                await message.channel.send("Something's fucky, no upload.")
                 continue
 
             url = attachment.url
             download_file(url)
+            await message.channel.send("Upload successful.")
 
 
 def download_file(url):
