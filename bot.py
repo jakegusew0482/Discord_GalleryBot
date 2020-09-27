@@ -2,6 +2,7 @@ import os
 import requests
 import discord
 import uuid
+import re
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,11 +36,16 @@ async def on_message(message):
     if message.content == 'howdy':
         await message.channel.send(quote)
 
+    match = re.search(r"((i|I)'*( *(a|A))*(m|M))( )+(.+)", message.content)
+    if match:
+        await message.channel.send("Hi %s." % match.group(7))
+
     if message.channel.name == CHANNEL:
         for attachment in message.attachments:
             extension = attachment.filename[-4:]
+
             if extension.upper() not in [x.upper() for x in ALLOWED_FILES]:
-                await message.channel.send("Something's fucky, no upload.")
+                await message.channel.send("This file extension is not supported.")
                 continue
 
             url = attachment.url
