@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-CHANNEL_NAME = "gallery-submissions"
+CHANNEL = os.getenv('CHANNEL_NAME')
+IMG_DIR = os.getenv('IMAGE_DIRECTORY')
 ALLOWED_FILES = [".png", ".jpg", ".gif"]
-DOWNLOAD_DIR = "img"
 
 client = discord.Client()
 
@@ -35,7 +35,7 @@ async def on_message(message):
     if message.content == 'howdy':
         await message.channel.send(quote)
 
-    if message.channel.name == CHANNEL_NAME:
+    if message.channel.name == CHANNEL:
         for attachment in message.attachments:
             extension = attachment.filename[-4:]
             if extension not in ALLOWED_FILES:
@@ -49,7 +49,7 @@ def download_file(url):
     extension = url[-4:]
     file = requests.get(url)
     unique_filename = str(uuid.uuid4())
-    with open(DOWNLOAD_DIR + "/" + unique_filename + extension, 'wb') as f:
+    with open(IMG_DIR + "/" + unique_filename + extension, 'wb') as f:
         f.write(file.content)
 
 
