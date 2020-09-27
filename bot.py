@@ -38,7 +38,7 @@ async def on_message(message):
     if message.channel.name == CHANNEL:
         for attachment in message.attachments:
             extension = attachment.filename[-4:]
-            if extension not in ALLOWED_FILES:
+            if extension.upper() not in [x.upper() for x in ALLOWED_FILES]:
                 continue
 
             url = attachment.url
